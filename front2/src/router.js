@@ -8,10 +8,19 @@ import Login from './pages/login.vue'
 import Subscribe from './pages/subscribe.vue'
 import Projects from './pages/projects.vue'
 import Tasks from './pages/tasks.vue'
+import Logout from './pages/logout.vue'
 
 const routes = [{
         path: '/login',
         component: Login
+    },
+    {
+        path: '/logout',
+        component: Logout
+    },
+    {
+        path: '/',
+        redirect: '/login'
     },
     {
         path: '/subscribe',

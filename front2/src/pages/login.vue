@@ -2,8 +2,14 @@
     import { mapState } from "vuex";
     export default {
       methods: {
-        submit() { 
+         checkLogin() {
+             if(this.$store.state.user && this.$store.state.user.token) {
+                this.$socket.emit('joinToken', { token: this.$store.state.user.token } )
+                this.$router.push('/projects')
+           }
 
+         },
+        submit() { 
             this.$store.dispatch('tryLogin', { email: this.email, password:  this.password }); 
         }
       },
@@ -15,7 +21,7 @@
         user (newUser, oldUser) {
             if( newUser && newUser.email ) {
               this.$socket.emit('joinToken', { token: newUser.token } )  
-              this.$router.push('/todo')
+              this.$router.push('/projects')
             }
         }
       },
@@ -26,6 +32,9 @@
             error: null
           }
         },
+    beforeMount(){
+        this.checkLogin()
+    },
 
   }
 </script>
@@ -77,7 +86,7 @@
                                 <p class="text-sm">Please check your credetials and try again</p>
                             </div>
                             <div>
-                                <button @click.stop.prevent="submit()" type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+                                <button @click.stop.prevent="submit()" type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign In</button>
                             </div>
                         </form>
                     </div>

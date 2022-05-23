@@ -12,7 +12,9 @@ exports.postLogin = async (req, res) => {
   } else {
         const currentUser = { ...findUsers[0]._doc };
         const token = jwt.sign({ ...currentUser } ,  process.env.JWT_SECRET_KEY || 'NotSoSecretKey');
-        res.json({token});
+        const answerUser= {...findUsers[0]._doc }
+        answerUser.password=undefined
+        res.json({...answerUser, token});
   }
 }
 exports.postSubscribe = async (req, res) => {

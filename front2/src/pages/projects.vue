@@ -46,7 +46,7 @@
                 <div>
                   <MenuButton class=" flex text-sm  text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 ">
                     <span class="sr-only">Open user menu</span>
-                    User
+                    - {{ getCurrentUser }} -
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -129,7 +129,9 @@
             </div>
           </div>
           <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
-            <li v-for="project in sortObjectByKeys(projects)" :key="project._id" class="relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
+            <li v-for="project in sortObjectByKeys(projects)" :key="project._id"
+             @click="this.$router.push('/tasks/'+project._id)"
+             class="cursor-pointer relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
               <div class="flex items-center justify-between space-x-4">
                 <!-- Repo name and link -->
                 <div class="min-w-0 space-y-3">
@@ -182,7 +184,7 @@ import {
 import { MenuAlt1Icon, XIcon } from '@heroicons/vue/outline'
 
 const userNavigation = [
-  { name: 'Sign out', href: '#' },
+  { name: 'Sign out', href: '/logout' },
 ]
 // const projects = [
 //   {
@@ -215,6 +217,13 @@ methods: {
     }
 },
 computed: {
+    getCurrentUser() {
+         if(!(this.$store.state.user && this.$store.state.user.token)) {
+            this.$router.push('/login')
+         }
+         console.log(this.$store.state.user)
+     return this.$store.state.user.name },
+
 
         ...mapState(["projects"])
       },

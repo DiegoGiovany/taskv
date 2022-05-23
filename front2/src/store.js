@@ -2,7 +2,14 @@ import {
     Store,
     createStore
 } from 'vuex'
+import VuexPersistence from 'vuex-persist'
+
 import axios from 'axios';
+
+const vuexLocal = new VuexPersistence({
+    key: 'App',
+    storage: window.localStorage
+  });
 const store = new Store({
     state: {
         projects: {},
@@ -12,7 +19,14 @@ const store = new Store({
         subscribeError: false,
         subscribeSuccess: false,
     },
+    plugins: [ vuexLocal.plugin ],
     actions: {
+        tryLogout({
+            commit
+        }) {
+                    commit('setUser', {});
+                    commit('setLoginError', false);
+        },
         tryLogin({
             commit
         }, user) {
@@ -101,9 +115,13 @@ const store = new Store({
         },
         setUser(state, user) {
             state.user = {
+                name: user.name,
                 email: user.email,
                 token: user.token
             }
+        },
+        setTaskStatus(state, data) {
+            state.tasks[data.id].status = data.status
         },
     }
 })
