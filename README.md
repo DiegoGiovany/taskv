@@ -5,7 +5,7 @@ Run a mongodb docker:
 
 Back uses express and socket.io 
 
-To start
+To start:
 
     cd back/server;
 
@@ -14,7 +14,8 @@ To start
 	node index.js; 
 
 Front uses vite, vue, vuex, socket.io and tailwind.
-To start
+
+To start:
 
 	cd front2;
 
