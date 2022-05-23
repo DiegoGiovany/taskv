@@ -2,12 +2,16 @@
     import { mapState } from "vuex";
     export default {
       methods: {
+        resetForm() {
+             this.$store.commit('setSubscribeError', false);
+         },
         submit() { 
             this.$store.dispatch('trySubscribe', { 
                 email: this.email, 
                 password: this.password, 
                 confirm_password: this.confirm_password,
                 name: this.name }); 
+             this.$router.push('/login')
         }
       },
       computed: {
@@ -21,11 +25,15 @@
       },
         data() {
           return {
+            name: '',
             email: '',
             password: '',
             confirm_password: '',
           }
         },
+        beforeMount(){
+           this.resetForm()
+        }
 
   }
 </script>

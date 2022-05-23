@@ -195,6 +195,7 @@ methods: {
         return Object.keys(o).reverse().reduce((r, k) => (r[k] = o[k], r), {});
     },
     getProjects() {
+      this.$store.commit('cleanProjects')
         this.$socket.emit('getAllProjects')
     },
     createProject() {

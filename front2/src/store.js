@@ -59,6 +59,7 @@ const store = new Store({
             commit
         }, user) {
             commit('setSubscribeError', false);
+             commit('setUser', {});
             if(user.password != user.confirm_password) {
                 commit('setSubscribeError', true);
                 return
@@ -69,7 +70,7 @@ const store = new Store({
                     password: user.password
                 })
                 .then(res => {
-                    commit('setUser', {});
+                   
                     commit('setSubscribeSuccess', true);
                 })
                 .catch(err => {
@@ -110,6 +111,9 @@ const store = new Store({
         },
         cleanTasks(state) {
             state.tasks={}
+        },
+         cleanProjects(state) {
+            state.projects={}
         },
         SOCKET_deleteProject(state, projectId) {
             delete state.projects[projectId]
