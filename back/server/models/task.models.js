@@ -6,6 +6,8 @@ const tasks = {
   project_id: String,
   name: String,
   status: String,
+  create_at: String,
+  done_at: String
 };
 
 

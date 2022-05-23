@@ -121,6 +121,8 @@ const store = new Store({
             }
         },
         setTaskStatus(state, data) {
+            if(data.status == 'Done') { state.tasks[data.id].done_at = new Date().toISOString(); }
+            else { state.tasks[data.id].done_at = undefined }
             state.tasks[data.id].status = data.status
         },
     }
