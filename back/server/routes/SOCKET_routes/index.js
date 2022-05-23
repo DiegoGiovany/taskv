@@ -21,6 +21,9 @@ io.on('connection', (socket) => {
     socket.on('deleteTask', (task) => {
         taskController.deleteTask(socket, task)
     })
+        socket.on('deleteProject', (project) => {
+        projectController.deleteProject(socket, project)
+    })
     socket.on('setTaskStatus', (data) => {
         taskController.setTaskStatus(socket, data._id, data.status)
     })

@@ -155,7 +155,7 @@
                 <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
                     
                   <p class="flex text-gray-500 text-sm space-x-2">
-                    <span>...</span>
+                    <button @click.stop.prevent="deleteProject(project._id)" type="button" class=" absolute right-10 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">delete</button>
                     <span aria-hidden="true">&middot;</span>
 
                   </p>
@@ -205,7 +205,11 @@ const activityItems = [
 ]
  import { mapState } from "vuex";
 export default {
+
 methods: {
+     deleteProject(id) {
+           this.$socket.emit('deleteProject', id )
+        },
      sortObjectByKeys(o) {
         return Object.keys(o).reverse().reduce((r, k) => (r[k] = o[k], r), {});
     },
