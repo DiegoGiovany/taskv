@@ -22,4 +22,6 @@ To start
 
 	npm run dev;
 
-To create a new user, enter localhost:3000/subscribe 
+To create a new user, navigate to:
+
+	http://localhost:3000/subscribe 
