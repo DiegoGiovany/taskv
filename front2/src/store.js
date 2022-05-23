@@ -108,6 +108,9 @@ const store = new Store({
 
             delete state.tasks[taskid]
         },
+        cleanTasks(state) {
+            state.tasks={}
+        },
         SOCKET_deleteProject(state, projectId) {
             delete state.projects[projectId]
         },

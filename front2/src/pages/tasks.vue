@@ -254,6 +254,7 @@ export default {
             return {};
         },
         getTasks() {
+           this.$store.commit('cleanTasks')
             this.$socket.emit('getAllTasks', {
                 project_id: this.project_id
             })

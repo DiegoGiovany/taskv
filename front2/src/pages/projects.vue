@@ -23,7 +23,7 @@
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <SearchIcon class="h-5 w-5" aria-hidden="true" />
                 </div>
-                <input id="search" name="search" class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-400 bg-opacity-25 text-indigo-100 placeholder-indigo-200 focus:outline-none focus:bg-white focus:ring-0 focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm" placeholder="Search projects" type="search" />
+                <input v-model=searching id="search" name="search" class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-400 bg-opacity-25 text-indigo-100 placeholder-indigo-200 focus:outline-none focus:bg-white focus:ring-0 focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm" placeholder="Search projects" type="search" />
               </div>
             </div>
           </div>
@@ -106,30 +106,11 @@
           <div class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
             <div class="flex items-center">
               <h1 class="flex-1 text-lg font-medium">Projects</h1>
-              <Menu as="div" class="relative">
-     <!--            <MenuButton class="w-full bg-white border border-gray-300 rounded-md shadow-sm px-4 py-2 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  <SortAscendingIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-                  Sort
-                  <ChevronDownIcon class="ml-2.5 -mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                </MenuButton> -->
-                <MenuItems class="origin-top-right z-10 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                      <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Name</a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Date modified</a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Date created</a>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </Menu>
+             
             </div>
           </div>
-          <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
-            <li v-for="project in sortObjectByKeys(projects)" :key="project._id"
+          <ul   v-for="project in sortObjectByKeys(projects)" :key="project._id"  role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
+            <li v-if="project.name.includes(this.searching)"
              @click="this.$router.push('/tasks/'+project._id)"
              class="cursor-pointer relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
               <div class="flex items-center justify-between space-x-4">
@@ -237,6 +218,7 @@ watch: {
 data() {
           return {
             projectName: '',
+            searching: '',
           }
       },
   components: {
