@@ -104,6 +104,10 @@ const store = new Store({
             state.tasks[task._id]=task
             // console.log(state.projects);
         },
+        SOCKET_deleteTask(state, taskid) {
+            console.log(taskid)
+            delete state.tasks[taskid]
+        },
         setLoginError(state, iserror=false) {
             state.loginError = iserror;
         },

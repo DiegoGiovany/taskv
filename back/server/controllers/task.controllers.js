@@ -21,3 +21,14 @@ exports.getAllTasks = async (socket, projectID) => {
     socket.emit('taskLoad', findTasks)
     return
 }
+
+exports.setTaskStatus = async (socket, taskId, status) => {
+    await Task.updateOne({ _id: taskId }, { status: status }, { upsert: true });
+    return
+}
+
+exports.deleteTask = async (socket, taskId ) => {
+   await Task.deleteOne({ _id: taskId })
+   socket.emit('deleteTask', taskId)
+   return
+}

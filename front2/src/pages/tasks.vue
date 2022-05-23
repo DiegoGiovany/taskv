@@ -144,7 +144,7 @@
 
                                 <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
                                     <p class="flex text-gray-500 text-sm space-x-2">
-                                        <span>delete</span>
+                                               <button @click.stop.prevent="deleteTask(task._id)" type="button" class=" absolute right-10 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">delete</button>
                                         <span aria-hidden="true">&middot;</span>
                                     </p>
                                 </div>
@@ -177,7 +177,8 @@
 
                                 <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
                                     <p class="flex text-gray-500 text-sm space-x-2">
-                                        <span>delete</span>
+                                       <button @click.stop.prevent="deleteTask(task._id)" type="button" class=" absolute right-10 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">delete</button>
+                                      
                                         <span aria-hidden="true">&middot;</span>
                                     </p>
                                 </div>
@@ -234,13 +235,18 @@ export default {
         "project_id"
     ],
     methods: {
+        deleteTask(id) {
+          console.log('del')
+           this.$socket.emit('deleteTask', id )
+        },
         setDone(id) {
-            let nestStatus = 'Done';
-            if (this.$store.state.tasks[id].status == 'Done') nestStatus = 'Not Done';
+            let nextStatus = 'Done';
+            if (this.$store.state.tasks[id].status == 'Done') nextStatus = 'Not Done';
             this.$store.commit('setTaskStatus', {
                 id,
-                status: nestStatus
+                status: nextStatus
             })
+            this.$socket.emit('setTaskStatus', {_id: id, status: nextStatus})
         },
         sortObjectByKeys(o) {
             if (o)
